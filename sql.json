@@ -1,0 +1,119 @@
+{
+	// SQL
+	"SELECT-FROM": {
+		"prefix": "sel",
+		"body": [ "SELECT\nFROM \n;"],
+		"description": "SELECT-FROM"
+	},
+	"IF": {
+		"prefix": "IF",
+		"body": [ "IF() THEN\nELSE\nEND IF;"],
+		"description": "IF-THEN-ELSE"
+	},
+	"UPDATE-SET": {
+		"prefix": "up",
+		"body": [ "UPDATE  SET = ;"],
+		"description": "UPDATE-SET"
+	},
+	"INSERT-INTO": {
+		"prefix": "ins",
+		"body": [ "INSERT INTO  ()\nVALUES(,,);"],
+		"description": "INSERT-INTO"
+	},
+	"CASE-WHEN": {
+		"prefix": "cas",
+		"body": [ "CASE funcion_var \n\tWHEN 1 THEN \n\t\t-- proceso1\n\tWHEN 2 THEN \n\t\t-- proceso2  \n\tELSE  \n\t\t-- proceso default \nEND CASE;\n"],
+		"description": "CASE-WHEN"
+	},
+	"SELECT-IF": {
+		"prefix": "is",
+		"body": [ "SELECT IF ( (SELECT COUNT(id_usuario) AS counter FROM usuario HAVING counter>0) , "yes" , "no" );"],
+		"description": "SELECT-IF"
+	},
+	"DELETE": {
+		"prefix": "dele",
+		"body": [ "DELETE FROM table ;"],
+		"description": "DELETE"
+	},
+	"BEGIN": {
+		"prefix": "beg",
+		"body": [ "BEGIN\n\n\n\nEND"],
+		"description": "BEGIN"
+	},
+	"INNER-JOIN": {
+		"prefix": "inn",
+		"body": [ "INNER JOIN"],
+		"description": "INNER-JOIN"
+	},
+	"GROUP BY": {
+		"prefix": "gro",
+		"body": [ "GROUP BY"],
+		"description": "GROUP BY"
+	},
+	"ORDER BY": {
+		"prefix": "or",
+		"body": [ "ORDER BY"],
+		"description": "ORDER BY"
+	},
+	"BETWEEN": {
+		"prefix": "bet",
+		"body": [ "BETWEEN  a AND b"],
+		"description": "BETWEEN"
+	},
+	"CONCAT": {
+		"prefix": "conc",
+		"body": [ "CONCAT(var,'%')"],
+		"description": "CONCAT"
+	},
+	// sql personales
+	"EXITO-1": {
+		"prefix": "exit",
+		"body"  : [ "SELECT 1 AS exito;"],
+		"description": "EXITO-1"
+	},
+	"FECHA_INT": {
+		"prefix": "fie",
+		"body"  : [ "FLOOR( ( curdate() -U.fecha_nac_int) / 10000 ) as edad"],
+		"description": "FECHA_INT"
+	},
+	"DECLARA-Variable": {
+		"prefix": "decl",
+		"body": [ "DECLARE Variable INT DEFAULT NULL;" ],
+		"description": "DECLARA-Variable"
+	},
+	"DROP-DELIMITER": {
+		"prefix": "drop",
+		"body": [ "DROP PROCEDURE IF EXISTS ;\nDELIMITER //\n" ],
+		"description": "DROP-DELIMITER"
+	},
+	"CREATE-PROCEDURE": {
+		"prefix": "crea",
+		"body": [ "CREATE PROCEDURE SP_MACHOTE ( IN _var INT(11), _var VARCHAR(80) )" ],
+		"description": "CREATE-PROCEDURE"
+	},
+	"COMMENT": {
+		"prefix": "com",
+		"body": [ "-- ////////////////////////////////////////////\n-- |   BY: Emmanuel Ramírez Badillo           |\n-- |   E-mail: Emmanuel.ramirez@bosc.com.mx   |\n-- ////////////////////////////////////////////\n-- Fecha de creación del SP\n-- [ Lo que hace el SP o comentarios sobre el SP ]\n" ],
+		"description": "COMMENT"
+	},
+	"ENTRADAS-SALIDAS": {
+		"prefix": "ent",
+		"body": [ "-- ========================\n-- Entradas\n-- -valores\n-- Salidas\n-- -valores\n" ],
+		"description": "ENTRADAS-SALIDAS"
+	},
+	"MODIFICACIONES": {
+		"prefix": "mod",
+		"body": [ "-- ========================\n-- Modificaciones:\n-- Emmanuel Ramirez Badillo : emmanuel.ramiez@bosc.com\n-- Fecha de modificación del SP\n-- -------------------------\n" ],
+		"description": "MODIFICACIONES"
+	},
+	"Existe-USR": {
+		"prefix": "existe",
+		"body": [ "DECLARE usrOK INT DEFAULT 0;\n-- Obtenemos el id de usuario \nCALL SP_existeUsuario( guid, usrOK );\n-- si el usuario es = 0 no existe y damos la salida del SP \nIF( usrOK = 0 ) THEN\n\tSELECT -1 AS exito;\nELSE\n\tSELECT 1 AS exito;\nEND IF;" ],
+		"description": "Existe-USR"
+	},
+	"SQLEXCEPTION": {
+		"prefix": "exe",
+		"body": [ "DECLARE EXIT HANDLER FOR SQLEXCEPTION\nBEGIN\n  SET @thisProcedure = "Nombre_del_SP" ;\n  GET DIAGNOSTICS CONDITION 1 @sqlstate = RETURNED_SQLSTATE,@errno = MYSQL_ERRNO, @text = MESSAGE_TEXT;\n  INSERT INTO registro_log_error (codigo_error,sql_estate,descripcion,nombre_sp)\n  VALUES(@errno,@sqlstate,@text,@thisProcedure);\n  SELECT -1 AS exito;\nEND;" ],
+		"description": "SQLEXCEPTION"
+	}
+}
